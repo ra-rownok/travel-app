@@ -76,11 +76,14 @@ const Navbar = ({ type }) => {
       <AppBar position="static" color="transparent" sx={{ padding: 2 }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <img
-              src={logo}
-              alt="logo"
-              className={type === "home" ? "logo" : "login-logo"}
-            />
+            <Link to="/">
+              {" "}
+              <img
+                src={logo}
+                alt="logo"
+                className={type === "home" ? "logo" : "login-logo"}
+              />
+            </Link>
             {type === "home" && (
               <Search className="search">
                 <SearchIconWrapper>
@@ -143,9 +146,15 @@ const Navbar = ({ type }) => {
                     letterSpacing: ".1rem",
                   }}
                 >
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    Login
-                  </Link>
+                  {type === "login" ? (
+                    <Link to="/signup" style={{ textDecoration: "none" }}>
+                      Register
+                    </Link>
+                  ) : (
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      Login
+                    </Link>
+                  )}
                 </ColorButton>
               </Menu>
             </Box>
@@ -183,9 +192,15 @@ const Navbar = ({ type }) => {
                   letterSpacing: ".1rem",
                 }}
               >
-                <Link to="/login" style={{ textDecoration: "none" }}>
-                  Login
-                </Link>
+                {type === "login" ? (
+                    <Link to="/signup" style={{ textDecoration: "none" }}>
+                      Register
+                    </Link>
+                  ) : (
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      Login
+                    </Link>
+                  )}
               </ColorButton>
             </Box>
           </Toolbar>

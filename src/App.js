@@ -3,12 +3,10 @@ import { orange } from "@mui/material/colors";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Routes,Route } from "react-router-dom";
-import Login from "./components/Login";
-import Main from "./components/Main";
-import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
+import SignIn from "./pages/SignIn";
 
 const theme = createTheme({
   breakpoints: {
@@ -36,7 +34,8 @@ function App() {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
-          <Route path="/login" element={<Registration/>}></Route>
+          <Route path="/login" element={<SignIn/>}></Route>
+          <Route path="/signup" element={<Registration/>}></Route>
           <Route path="*" element={<NotFound/>}></Route>
         </Routes>
       </LocalizationProvider>
