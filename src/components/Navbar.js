@@ -17,10 +17,13 @@ import { alpha, InputBase, styled } from "@mui/material";
 import logo from "../static/images/logo.png";
 import { ColorButton } from "../App";
 import { Link } from "react-router-dom";
+import useFirebase from "../hooks/useFirebase";
 
-const pages = ["Destination", "Blog", "Contact"];
+const pages = ["Destination", "Hotels", "Contact"];
 
 const Navbar = ({ type }) => {
+  const { user, handleSignOut } = useFirebase();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -138,7 +141,7 @@ const Navbar = ({ type }) => {
                 ))}
                 <ColorButton
                   variant="contained"
-                  onClick={handleCloseNavMenu}
+                  // onClick={handleSignOut}
                   sx={{
                     my: 1,
                     mx: 2,
@@ -176,14 +179,20 @@ const Navbar = ({ type }) => {
                     display: "block",
                     fontSize: 13,
                     letterSpacing: ".2rem",
-                    color: type === "home" ? "white" : "black",
                   }}
                 >
-                  {page}
+                  <Link
+                    to="/profile"
+                    style={{
+                      textDecoration: "none",
+                      color: type === "home" ? "white" : "black",
+                    }}
+                  >
+                    {page}
+                  </Link>
                 </Button>
               ))}
               <ColorButton
-                onClick={handleCloseNavMenu}
                 sx={{
                   my: 2,
                   mx: 1,
@@ -193,14 +202,23 @@ const Navbar = ({ type }) => {
                 }}
               >
                 {type === "login" ? (
-                    <Link to="/signup" style={{ textDecoration: "none" }}>
-                      Register
-                    </Link>
-                  ) : (
-                    <Link to="/login" style={{ textDecoration: "none" }}>
-                      Login
-                    </Link>
-                  )}
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    Register
+                  </Link>
+                ) : type === "logout" && user ? (
+                  <Link
+                    onClick={() => handleSignOut(localStorage.removeItem('user'))}
+                    to="/login"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Logout
+
+                  </Link>
+                ) : (
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    Login
+                  </Link>
+                )}
               </ColorButton>
             </Box>
           </Toolbar>
